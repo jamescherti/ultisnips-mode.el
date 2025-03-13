@@ -6,7 +6,7 @@
 ;; Version: 0.9.9
 ;; URL: https://github.com/jamescherti/ultisnips-mode.el
 ;; Keywords: languages
-;; Package-Requires: ((emacs "24.1"))
+;; Package-Requires: ((emacs "28.1"))
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -27,56 +27,47 @@
 
 ;;; Code:
 
-(defgroup ultisnips-mode nil
-  "Emacs major mode for editing Ultisnips snippets"
-  :group 'ultisnips-mode
-  :prefix "ultisnips-mode-"
+(defgroup ultisnips nil
+  "Emacs major mode for editing Ultisnips snippets."
+  :group 'ultisnips
+  :prefix "ultisnips-"
   :link '(url-link
           :tag "Github"
-          "https://github.com/jamescherti/ultisnips-mode.el"))
+          "https://github.com/jamescherti/ultisnips.el"))
 
-(defcustom ultisnips-mode-verbose nil
-  "Enable displaying messages (e.g., when files are compiled).
-When set to non-nil, this option will cause messages to be shown during the
-compilation process, providing feedback on the compilation status."
-  :type 'boolean
-  :group 'ultisnips-mode)
-
-(defcustom ultisnips-mode-debug nil
-  "Non-nil to display debug messages in the *ultisnips-mode:debug* buffer.
-This displays a lot of messages."
-  :type 'boolean
-  :group 'ultisnips-mode)
-
-(defun ultisnips-mode--message (&rest args)
-  "Display a message with the same ARGS arguments as `message'."
-  (apply #'message (concat "[ultisnips-mode] " (car args)) (cdr args)))
-
-(defmacro ultisnips-mode--verbose-message (&rest args)
-  "Display a verbose message with the same ARGS arguments as `message'."
-  `(progn
-     (when ultisnips-mode-debug
-       (ultisnips-mode--debug-message ,(car args) ,@(cdr args)))
-     (when ultisnips-mode-verbose
-       (ultisnips-mode--message
-        (concat "[ultisnips-mode] " ,(car args)) ,@(cdr args)))))
-
-(defmacro ultisnips-mode--debug-message (&rest args)
-  "Display a debug message with the same ARGS arguments as `message'.
-The messages are displayed in the *ultisnips-mode* buffer."
-  `(when ultisnips-mode-debug
-     (ultisnips-mode--insert-message "*ultisnips-mode:debug*"
-                                                    ,(car args) ,@(cdr args))))
+(defvar ultisnips-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    table)
+  "Syntax table for `ultisnips-mode'.")
 
 ;;;###autoload
-(define-minor-mode ultisnips-mode-mode
-  "Toggle `ultisnips-mode-mode'."
-  :global t
-  :lighter " ultisnips-mode"
-  :group 'ultisnips-mode
-  (if ultisnips-mode-mode
-      t
-    t))
+(define-derived-mode ultisnips-mode prog-mode "Ultisnips"
+  "Major mode for editing *.snippets files."
+  :syntax-table ultisnips-mode-syntax-table
+  (setq-local font-lock-multiline t)
+  (setq-local indent-tabs-mode t)
+  (setq-local tab-width 4)
+  (setq-local indent-line-function nil)
+
+  ;; Override font-lock settings to remove inherited highlighting
+  (setq-local
+   font-lock-defaults
+   '(( ;; snippet, endsnippet, priority as functions
+      ("^\\(snippet\\|endsnippet\\|priority\\)\\b" . font-lock-function-name-face)
+      ;; First word after snippet as a variable
+      ("^snippet\\s-+\\(\\S-+\\)" 1 font-lock-keyword-face)
+      ;; Matches ${1:var_name}
+      ("\\${\\([0-9]+\\):[^}]*}" 0 font-lock-variable-name-face)
+      ;; Matches $1, $2, etc.
+      ("\\$[0-9]+" . font-lock-variable-name-face))
+     t    ;; keywords-only
+     nil  ;; case-fold
+     nil  ;; syntax-alist
+     nil  ;; syntax-begin
+     )))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.snippets\\'" . ultisnips-mode))
 
 (provide 'ultisnips-mode)
 ;;; ultisnips-mode.el ends here
