@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/github/license/jamescherti/ultisnips-mode.el)
 ![](https://raw.githubusercontent.com/jamescherti/ultisnips-mode.el/main/.images/made-for-gnu-emacs.svg)
 
-The `ultisnips-mode` is an Emacs major mode for editing Ultisnips snippet files (`*.snippets` files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
+The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet files (**.snippets* files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
 
 *([Vim's UltiSnips](https://github.com/SirVer/ultisnips) is a snippet solution for Vim, and its snippets can be used in Emacs by converting them to the Yasnippet format using [Ultyas](https://github.com/jamescherti/ultyas).)*
 
