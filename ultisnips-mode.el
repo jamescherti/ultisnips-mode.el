@@ -33,7 +33,7 @@
   :prefix "ultisnips-"
   :link '(url-link
           :tag "Github"
-          "https://github.com/jamescherti/ultisnips.el"))
+          "https://github.com/jamescherti/ultisnips-mode.el"))
 
 (defvar ultisnips-mode-syntax-table
   (let ((table (make-syntax-table)))
