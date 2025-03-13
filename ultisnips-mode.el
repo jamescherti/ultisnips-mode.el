@@ -67,7 +67,7 @@
      )))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.snippets\\'" . ultisnips-mode))
+(add-to-list 'auto-mode-alist '("\\.[sS][nN][iI][pP][pP][eE][tT][sS]\\'" . ultisnips-mode))
 
 (provide 'ultisnips-mode)
 ;;; ultisnips-mode.el ends here
