@@ -47,7 +47,7 @@
   (setq-local font-lock-multiline t)
   (setq-local indent-tabs-mode t)
   (setq-local tab-width 4)
-  (setq-local indent-line-function nil)
+  (setq-local indent-line-function #'ignore)
 
   ;; Override font-lock settings to remove inherited highlighting
   (setq-local
