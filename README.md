@@ -1,7 +1,7 @@
 # ultisnips-mode.el
 ![Build Status](https://github.com/jamescherti/ultisnips-mode.el/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/github/license/jamescherti/ultisnips-mode.el)
-![](https://raw.githubusercontent.com/jamescherti/ultisnips-mode.el/main/.images/made-for-gnu-emacs.svg)
+![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
 The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet files (*.snippets files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
 
