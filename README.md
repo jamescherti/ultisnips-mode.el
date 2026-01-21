@@ -9,7 +9,7 @@ The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet file
 
 ## Features
 
-* Syntax highlighting for UltiSnips snippet definitions, keywords: `snippet`, `endsnippet`, `global`, `endglobal`, `priority`, `placeholders` in the form of `${1:value}` or `$1`, comments...
+* Syntax highlighting for UltiSnips: `snippet`, `endsnippet`, `global`, `endglobal`, `priority`, comments, and placeholders in the form of `${1:value}` or `$1`...
 * Integration with `outline-minor-mode` or `hs-minor-mode` to enable folding of `snippet` -> `endsnippet` and `global` -> `endglobal` blocks.
 * Support for commenting and uncommenting UltiSnips snippets using standard Emacs commands, such as `comment-or-uncomment-region`.
 * Add `*.snippets` to `auto-mode-alist` to automatically enable `ultisnips-mode`.
