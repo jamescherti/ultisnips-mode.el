@@ -158,12 +158,12 @@ to the end of the next block. When ARG is nil, treat it as 1."
    '(( ;; Comments
       ("^\\s-*#.*" . font-lock-comment-face)
       ;; snippet, endsnippet, priority as functions
-      ("^\\(priority\\)\\b" .
+      ("^\\(priority\\)\\_>" .
        font-lock-function-name-face)
       ;; snippet [trigger] ["description"] [options]
-      ("^\\(snippet\\|endsnippet\\)\\b" .
+      ("^\\(snippet\\|endsnippet\\)\\_>" .
        font-lock-function-name-face)
-      ("^\\(global\\|endglobal\\)\\b" .
+      ("^\\(global\\|endglobal\\)\\_>" .
        font-lock-function-name-face)
       ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
        (1 font-lock-keyword-face)
