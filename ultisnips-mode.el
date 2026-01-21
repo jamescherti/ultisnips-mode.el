@@ -92,10 +92,16 @@ current block."
    '(( ;; Comments
       ("^\\s-*#.*" . font-lock-comment-face)
       ;; snippet, endsnippet, priority as functions
-      ("^\\(global\\|endglobal\\|snippet\\|endsnippet\\|priority\\)\\b" .
+      ("^\\(priority\\)\\b" .
        font-lock-function-name-face)
-      ;; First word after snippet as a variable
-      ("^snippet\\s-+\\(\\S-+\\)" 1 font-lock-keyword-face)
+      ;; snippet [trigger] ["description"] [options]
+      ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
+       (1 font-lock-keyword-face)
+       (2 font-lock-string-face nil t))
+      ("^\\(snippet\\)\\b" .
+       font-lock-function-name-face)
+      ("^\\(global\\|endglobal\\)\\b" .
+       font-lock-function-name-face)
       ;; Matches ${1:var_name}
       ("\\${\\([0-9]+\\):[^}]*}" 0 font-lock-variable-name-face)
       ;; Matches $1, $2, etc.
