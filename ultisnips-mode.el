@@ -57,20 +57,34 @@
     2))
 
 (defun ultisnips-mode--hs-forward-sexp (&optional arg)
-  "Move point forward across ARG UltiSnips blocks."
+  "Move point forward across UltiSnips blocks."
   (interactive "p")
   (let ((count (or arg 1)))
     (while (> count 0)
+      ;; Normalize position
       (beginning-of-line)
+
       (cond
+       ;; At snippet start: jump to its end
        ((looking-at "^snippet\\_>")
+        (goto-char (match-end 0))
         (unless (re-search-forward "^endsnippet\\_>" nil t)
-          (error "No matching endsnippet found")))
+          (error "No matching endsnippet found"))
+        (end-of-line))
+
+       ;; At global start: jump to its end
        ((looking-at "^global\\_>")
+        (goto-char (match-end 0))
         (unless (re-search-forward "^endglobal\\_>" nil t)
-          (error "No matching endglobal found")))
+          (error "No matching endglobal found"))
+        (end-of-line))
+
+       ;; Otherwise, jump to next block start
        (t
-        (error "Not at start of UltiSnips block")))
+        (unless (re-search-forward "^\\(snippet\\|global\\)\\_>" nil t)
+          (error "No further UltiSnips block found"))
+        (goto-char (match-beginning 0))))
+
       (setq count (1- count)))
     t))
 
