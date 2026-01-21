@@ -58,7 +58,7 @@ NOTE: As an alternative to `hs-minor-mode`, `ultisnips-mode` also supports `outl
 
 For a better and more intuitive way to fold and unfold snippets, it is recommended to use the [kirigami.el](https://github.com/aki2o/kirigami) emacs package.
 
-### Folding snippets with hs-minor-mode when opening *.snippets files
+### Hiding all snippets with hs-minor-mode when opening *.snippets files
 
 The following configuration automatically folds all code blocks when `ultisnips-mode` is enabled, collapsing all snippets:
 
