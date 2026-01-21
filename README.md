@@ -44,7 +44,7 @@ To install `ultisnips-mode` with `use-package` and `:vc` (Emacs >= 30):
 
 ## Frequently Asked Questions
 
-### Folding snippet blocks with `hs-minor-mode`
+### Folding snippet blocks with hs-minor-mode
 
 Activating `hs-minor-mode` provides the ability to collapse and expand `snippet` -> `endsnippet` blocks, making navigation in large snippet files much easier.
 
