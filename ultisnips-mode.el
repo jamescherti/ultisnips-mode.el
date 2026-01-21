@@ -161,13 +161,13 @@ to the end of the next block. When ARG is nil, treat it as 1."
       ("^\\(priority\\)\\b" .
        font-lock-function-name-face)
       ;; snippet [trigger] ["description"] [options]
-      ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
-       (1 font-lock-keyword-face)
-       (2 font-lock-string-face nil t))
       ("^\\(snippet\\|endsnippet\\)\\b" .
        font-lock-function-name-face)
       ("^\\(global\\|endglobal\\)\\b" .
        font-lock-function-name-face)
+      ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
+       (1 font-lock-keyword-face)
+       (2 font-lock-string-face nil t))
       ;; Matches ${1:var_name}
       ("\\${\\([0-9]+\\):[^}]*}" 0 font-lock-variable-name-face)
       ;; Matches $1, $2, etc.
