@@ -64,7 +64,7 @@ The following configuration automatically folds all code blocks when `ultisnips-
 
 ```elisp
 (defun my-ultisnips-mode-fold-all ()
-  "Fold all code blocks using `hs-minor-mode'."
+  "Fold all snippet blocks using `hs-minor-mode'."
   (hs-minor-mode 1)
   (hs-hide-all))
 
