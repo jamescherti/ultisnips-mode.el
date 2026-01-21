@@ -35,10 +35,20 @@
           :tag "Github"
           "https://github.com/jamescherti/ultisnips-mode.el"))
 
+(defcustom ultisnips-mode-hook nil
+  "Hooks called when Lua mode fires up."
+  :type 'hook
+  :options '(hs-minor-mode
+             outline-minor-mode))
+
 (defvar ultisnips-mode-syntax-table
   (let ((table (make-syntax-table)))
     table)
   "Syntax table for `ultisnips-mode'.")
+
+(defvar ultisnips-sexp-alist
+  '(("snippet" . "endsnippet")
+    ("global"  . "endglobal")))
 
 (defun ultisnips-mode--outline-level ()
   "Return the outline level for snippet blocks."
@@ -47,23 +57,23 @@
     2))
 
 (defun ultisnips-mode--hs-forward-sexp (&optional arg)
-  "Move point forward across ARG UltiSnips blocks.
-This function serves as the `hs-forward-sexp-function' for `hs-minor-mode'. It
-scans for the closing `endsnippet' or `endglobal' delimiter corresponding to the
-current block."
+  "Move point forward across ARG UltiSnips blocks."
   (interactive "p")
   (let ((count (or arg 1)))
     (while (> count 0)
+      (beginning-of-line)
       (cond
-       ((looking-at "snippet\\_>")
+       ((looking-at "^snippet\\_>")
         (unless (re-search-forward "^endsnippet\\_>" nil t)
           (error "No matching endsnippet found")))
-       ((looking-at "global\\_>")
+       ((looking-at "^global\\_>")
         (unless (re-search-forward "^endglobal\\_>" nil t)
           (error "No matching endglobal found")))
        (t
-        (forward-sexp 1)))
-      (setq count (1- count)))))
+        ;; MUST signal failure without exiting early
+        (error "Not at start of UltiSnips block")))
+      (setq count (1- count)))
+    t))  ;; ← REQUIRED
 
 ;;;###autoload
 (define-derived-mode ultisnips-mode prog-mode "Ultisnips"
@@ -82,9 +92,19 @@ current block."
   (setq-local outline-regexp  "^snippet")
 
   ;; `hs-minor-mode'
-  (setq-local hs-block-start-regexp "\\(^\\|\\s-\\)\\(global\\|snippet\\)\\_>")
-  (setq-local hs-block-end-regexp "\\(^\\|\\s-\\)\\(endglobal\\|endsnippet\\)\\_>")
-  (setq-local hs-forward-sexp-function #'ultisnips-mode--hs-forward-sexp)
+  (setq-local hs-block-start-regexp "^\\(snippet\\|global\\)\\_>")
+  (setq-local hs-block-end-regexp "^\\(endsnippet\\|endglobal\\)\\_>")
+  ;; (setq-local hs-forward-sexp-function #'ultisnips-mode--hs-forward-sexp)
+
+  (unless (assq 'ultisnips-mode hs-special-modes-alist)
+    (add-to-list 'hs-special-modes-alist
+                 `(ultisnips-mode
+                   ;; Start
+                   ,(regexp-opt (mapcar #'car ultisnips-sexp-alist) 'words)
+                   ;; End
+                   ,(regexp-opt (mapcar #'cdr ultisnips-sexp-alist) 'words)
+                   nil
+                   ultisnips-mode--hs-forward-sexp)))
 
   ;; Font lock: Override font-lock settings to remove inherited highlighting
   (setq-local
@@ -98,7 +118,7 @@ current block."
       ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
        (1 font-lock-keyword-face)
        (2 font-lock-string-face nil t))
-      ("^\\(snippet\\)\\b" .
+      ("^\\(snippet\\|endsnippet\\)\\b" .
        font-lock-function-name-face)
       ("^\\(global\\|endglobal\\)\\b" .
        font-lock-function-name-face)
