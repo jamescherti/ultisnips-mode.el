@@ -40,6 +40,31 @@
     table)
   "Syntax table for `ultisnips-mode'.")
 
+(defun ultisnips-mode--outline-level ()
+  "Return the outline level for snippet blocks."
+  (if (looking-at "^snippet")
+      1
+    2))
+
+(defun ultisnips-mode--hs-forward-sexp (&optional arg)
+  "Move point forward across ARG UltiSnips blocks.
+This function serves as the `hs-forward-sexp-function' for `hs-minor-mode'. It
+scans for the closing `endsnippet' or `endglobal' delimiter corresponding to the
+current block."
+  (interactive "p")
+  (let ((count (or arg 1)))
+    (while (> count 0)
+      (cond
+       ((looking-at "snippet\\_>")
+        (unless (re-search-forward "^endsnippet\\_>" nil t)
+          (error "No matching endsnippet found")))
+       ((looking-at "global\\_>")
+        (unless (re-search-forward "^endglobal\\_>" nil t)
+          (error "No matching endglobal found")))
+       (t
+        (forward-sexp 1)))
+      (setq count (1- count)))))
+
 ;;;###autoload
 (define-derived-mode ultisnips-mode prog-mode "Ultisnips"
   "Major mode for editing *.snippets files."
@@ -49,11 +74,26 @@
   (setq-local tab-width 4)
   (setq-local indent-line-function #'ignore)
 
-  ;; Override font-lock settings to remove inherited highlighting
+  (setq-local comment-start "# ")
+  (setq-local comment-start-skip "#+\\s-*")
+
+  ;; `outline-minor-mode'
+  (setq-local outline-level #'ultisnips-mode--outline-level)
+  (setq-local outline-regexp  "^snippet")
+
+  ;; `hs-minor-mode'
+  (setq-local hs-block-start-regexp "\\(^\\|\\s-\\)\\(global\\|snippet\\)\\_>")
+  (setq-local hs-block-end-regexp "\\(^\\|\\s-\\)\\(endglobal\\|endsnippet\\)\\_>")
+  (setq-local hs-forward-sexp-function #'ultisnips-mode--hs-forward-sexp)
+
+  ;; Font lock: Override font-lock settings to remove inherited highlighting
   (setq-local
    font-lock-defaults
-   '(( ;; snippet, endsnippet, priority as functions
-      ("^\\(snippet\\|endsnippet\\|priority\\)\\b" . font-lock-function-name-face)
+   '(( ;; Comments
+      ("^\\s-*#.*" . font-lock-comment-face)
+      ;; snippet, endsnippet, priority as functions
+      ("^\\(global\\|endglobal\\|snippet\\|endsnippet\\|priority\\)\\b" .
+       font-lock-function-name-face)
       ;; First word after snippet as a variable
       ("^snippet\\s-+\\(\\S-+\\)" 1 font-lock-keyword-face)
       ;; Matches ${1:var_name}

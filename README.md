@@ -7,6 +7,13 @@ The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet file
 
 *([Vim's UltiSnips](https://github.com/SirVer/ultisnips) is a snippet solution for Vim, and its snippets can be used in Emacs by converting them to the Yasnippet format using [Ultyas](https://github.com/jamescherti/ultyas).)*
 
+## Features
+
+* Syntax highlighting for UltiSnips snippet definitions, keywords: `snippet`, `endsnippet`, `global`, `endglobal`, `priority`, `placeholders` in the form of `${1:value}` or `$1`, comments...
+* Integration with `outline-minor-mode` or `hs-minor-mode` to enable folding of `snippet` -> `endsnippet` and `global` -> `endglobal` blocks.
+* Support for commenting and uncommenting UltiSnips snippets using standard Emacs commands, such as `comment-or-uncomment-region`.
+* Add `*.snippets` to `auto-mode-alist` to automatically enable `ultisnips-mode`.
+
 ## Installation
 
 ### Install with straight (Emacs version < 30)
@@ -34,6 +41,22 @@ To install `ultisnips-mode` with `use-package` and `:vc` (Emacs >= 30):
   :vc (:url "https://github.com/jamescherti/ultisnips-mode.el"
        :rev :newest))
 ```
+
+## Frequently Asked Questions
+
+### Folding snippet blocks with `hs-minor-mode`
+
+Activating `hs-minor-mode` provides the ability to collapse and expand `snippet` -> `endsnippet` blocks, making navigation in large snippet files much easier.
+
+To enable `hs-minor-mode` automatically for Ultisnips files, add the following to the Emacs configuration:
+
+```emacs-lisp
+(add-hook 'ultisnips-mode-hook #'hs-minor-mode)
+```
+
+NOTE: As an alternative to `hs-minor-mode`, `ultisnips-mode` also supports `outline-minor-mode`; however, **`hs-minor-mode` is recommended because it can reliably fold entire blocks from `snippet` to `endsnippet`**. In contrast, `outline-minor-mode` uses only the `snippet` line as a header and may hide everything between the first `snippet` and the next one, including comments.
+
+For a better and more intuitive way to fold and unfold snippets, it is recommended to use the [kirigami.el](https://github.com/aki2o/kirigami) emacs package.
 
 ## Author and License
 
