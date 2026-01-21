@@ -56,37 +56,68 @@
       1
     2))
 
+(defun ultisnips-mode--forward-sexp (&optional arg)
+  "Move point forward across ARG UltiSnips blocks, ending at the block terminator."
+  (interactive "p")
+  (let ((count (or arg 1))
+        (ends (mapcar #'cdr ultisnips-sexp-alist)))
+    (save-match-data
+      (while (> count 0)
+        (skip-chars-forward " \t\n")
+        (beginning-of-line)
+
+        (let ((done nil))
+          ;; If already on an end keyword, just move past it
+          (dolist (end ends)
+            (when (looking-at (concat "^" end "\\_>"))
+              (end-of-line)
+              (setq done t)))
+
+          ;; Otherwise search forward for the next end keyword
+          (unless done
+            (unless (re-search-forward
+                     (concat "^" (regexp-opt ends 'words) "\\_>") nil t)
+              (error "No further UltiSnips block end found"))
+            (end-of-line)))
+
+        (setq count (1- count))))
+    (point)))
+
 (defun ultisnips-mode--hs-forward-sexp (&optional arg)
-  "Move point forward across UltiSnips blocks."
+  "Move point forward across ARG UltiSnips blocks.
+
+ARG specifies how many block movements to perform. Each movement advances point
+to the end of the current UltiSnips block, or, if point is not at a block start,
+to the end of the next block. When ARG is nil, treat it as 1."
   (interactive "p")
   (let ((count (or arg 1)))
-    (while (> count 0)
-      ;; Normalize position
-      (beginning-of-line)
+    (save-match-data
+      (while (> count 0)
+        ;; Normalize position
+        (beginning-of-line)
 
-      (cond
-       ;; At snippet start: jump to its end
-       ((looking-at "^snippet\\_>")
-        (goto-char (match-end 0))
-        (unless (re-search-forward "^endsnippet\\_>" nil t)
-          (error "No matching endsnippet found"))
-        (end-of-line))
+        (cond
+         ;; At snippet start: jump to its end
+         ((looking-at "^snippet\\_>")
+          (goto-char (match-end 0))
+          (unless (re-search-forward "^endsnippet\\_>" nil t)
+            (error "No matching endsnippet found"))
+          (end-of-line))
 
-       ;; At global start: jump to its end
-       ((looking-at "^global\\_>")
-        (goto-char (match-end 0))
-        (unless (re-search-forward "^endglobal\\_>" nil t)
-          (error "No matching endglobal found"))
-        (end-of-line))
+         ;; At global start: jump to its end
+         ((looking-at "^global\\_>")
+          (goto-char (match-end 0))
+          (unless (re-search-forward "^endglobal\\_>" nil t)
+            (error "No matching endglobal found"))
+          (end-of-line))
 
-       ;; Otherwise, jump to next block start
-       (t
-        (unless (re-search-forward "^\\(snippet\\|global\\)\\_>" nil t)
-          (error "No further UltiSnips block found"))
-        (goto-char (match-beginning 0))))
+         ;; Otherwise, jump to next block start
+         (t
+          (unless (re-search-forward "^\\(snippet\\|global\\)\\_>" nil t)
+            (error "No further UltiSnips block found"))
+          (goto-char (match-beginning 0))))
 
-      (setq count (1- count)))
-    t))
+        (setq count (1- count))))))
 
 ;;;###autoload
 (define-derived-mode ultisnips-mode prog-mode "Ultisnips"
@@ -108,6 +139,8 @@
   (setq-local hs-block-start-regexp "^\\(snippet\\|global\\)\\_>")
   (setq-local hs-block-end-regexp "^\\(endsnippet\\|endglobal\\)\\_>")
   ;; (setq-local hs-forward-sexp-function #'ultisnips-mode--hs-forward-sexp)
+
+  (setq-local forward-sexp-function #'ultisnips-mode--forward-sexp)
 
   (unless (assq 'ultisnips-mode hs-special-modes-alist)
     (add-to-list 'hs-special-modes-alist
