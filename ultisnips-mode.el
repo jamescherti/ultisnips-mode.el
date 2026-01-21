@@ -30,7 +30,7 @@
 (defgroup ultisnips nil
   "Emacs major mode for editing Ultisnips snippets."
   :group 'ultisnips
-  :prefix "ultisnips-"
+  :prefix "ultisnips-mode-"
   :link '(url-link
           :tag "Github"
           "https://github.com/jamescherti/ultisnips-mode.el"))
@@ -46,7 +46,7 @@
     table)
   "Syntax table for `ultisnips-mode'.")
 
-(defvar ultisnips-sexp-alist
+(defvar ultisnips-mode--sexp-alist
   '(("snippet" . "endsnippet")
     ("global"  . "endglobal")))
 
@@ -60,7 +60,7 @@
   "Move point forward across ARG blocks, ending at the block terminator."
   (interactive "p")
   (let ((count (or arg 1))
-        (ends (mapcar #'cdr ultisnips-sexp-alist)))
+        (ends (mapcar #'cdr ultisnips-mode--sexp-alist)))
     (save-match-data
       (while (> count 0)
         (skip-chars-forward " \t\n")
@@ -143,9 +143,9 @@ to the end of the next block. When ARG is nil, treat it as 1."
     (add-to-list 'hs-special-modes-alist
                  `(ultisnips-mode
                    ;; Start
-                   ,(regexp-opt (mapcar #'car ultisnips-sexp-alist) 'words)
+                   ,(regexp-opt (mapcar #'car ultisnips-mode--sexp-alist) 'words)
                    ;; End
-                   ,(regexp-opt (mapcar #'cdr ultisnips-sexp-alist) 'words)
+                   ,(regexp-opt (mapcar #'cdr ultisnips-mode--sexp-alist) 'words)
                    nil
                    ultisnips-mode--hs-forward-sexp)))
 
