@@ -138,9 +138,6 @@ to the end of the next block. When ARG is nil, treat it as 1."
   ;; `hs-minor-mode'
   (setq-local hs-block-start-regexp "^\\(snippet\\|global\\)\\_>")
   (setq-local hs-block-end-regexp "^\\(endsnippet\\|endglobal\\)\\_>")
-  ;; (setq-local hs-forward-sexp-function #'ultisnips-mode--hs-forward-sexp)
-
-  (setq-local forward-sexp-function #'ultisnips-mode--forward-sexp)
 
   (unless (assq 'ultisnips-mode hs-special-modes-alist)
     (add-to-list 'hs-special-modes-alist
@@ -151,6 +148,8 @@ to the end of the next block. When ARG is nil, treat it as 1."
                    ,(regexp-opt (mapcar #'cdr ultisnips-sexp-alist) 'words)
                    nil
                    ultisnips-mode--hs-forward-sexp)))
+
+  (setq-local forward-sexp-function #'ultisnips-mode--forward-sexp)
 
   ;; Font lock: Override font-lock settings to remove inherited highlighting
   (setq-local
