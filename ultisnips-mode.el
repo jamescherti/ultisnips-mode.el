@@ -119,6 +119,9 @@ to the end of the next block. When ARG is nil, treat it as 1."
 
         (setq count (1- count))))))
 
+(defvar hs-block-start-regexp)
+(defvar hs-block-end-regexp)
+
 ;;;###autoload
 (define-derived-mode ultisnips-mode prog-mode "Ultisnips"
   "Major mode for editing *.snippets files."
