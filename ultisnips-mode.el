@@ -70,10 +70,9 @@
         (unless (re-search-forward "^endglobal\\_>" nil t)
           (error "No matching endglobal found")))
        (t
-        ;; MUST signal failure without exiting early
         (error "Not at start of UltiSnips block")))
       (setq count (1- count)))
-    t))  ;; ← REQUIRED
+    t))
 
 ;;;###autoload
 (define-derived-mode ultisnips-mode prog-mode "Ultisnips"
