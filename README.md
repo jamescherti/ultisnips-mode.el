@@ -63,12 +63,12 @@ For a better and more intuitive way to fold and unfold snippets, it is recommend
 The following configuration automatically folds all code blocks when `ultisnips-mode` is enabled, collapsing all snippets:
 
 ```elisp
-(defun my-ultisnips-mode-hide-all ()
+(defun my-ultisnips-mode-fold-all ()
   "Fold all snippet blocks using `hs-minor-mode'."
   (hs-minor-mode 1)
   (hs-hide-all))
 
-(add-hook 'ultisnips-mode-hook #'my-ultisnips-mode-hide-all)
+(add-hook 'ultisnips-mode-hook #'my-ultisnips-mode-fold-all)
 ```
 
 This ensures a cleaner view of snippets, collapsing all regions by default and allowing selective expansion as needed.
