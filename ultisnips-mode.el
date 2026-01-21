@@ -57,7 +57,7 @@
     2))
 
 (defun ultisnips-mode--forward-sexp (&optional arg)
-  "Move point forward across ARG UltiSnips blocks, ending at the block terminator."
+  "Move point forward across ARG blocks, ending at the block terminator."
   (interactive "p")
   (let ((count (or arg 1))
         (ends (mapcar #'cdr ultisnips-sexp-alist)))
@@ -178,7 +178,8 @@ to the end of the next block. When ARG is nil, treat it as 1."
      )))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.[sS][nN][iI][pP][pP][eE][tT][sS]\\'" . ultisnips-mode))
+(add-to-list 'auto-mode-alist
+             '("\\.[sS][nN][iI][pP][pP][eE][tT][sS]\\'" . ultisnips-mode))
 
 (provide 'ultisnips-mode)
 ;;; ultisnips-mode.el ends here
