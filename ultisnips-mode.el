@@ -1,4 +1,4 @@
-;;; ultisnips-mode.el --- Emacs major mode for editing Ultisnips snippets -*- lexical-binding: t; -*-
+;;; ultisnips-mode.el --- Major mode for editing Ultisnips snippets -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025-2026 James Cherti | https://www.jamescherti.com/contact/
 
@@ -23,7 +23,7 @@
 ;; along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; Emacs major mode for editing Ultisnips snippets.
+;; Major mode for editing Ultisnips snippets.
 
 ;;; Code:
 
