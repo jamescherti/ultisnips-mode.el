@@ -1,7 +1,5 @@
 # ultisnips-mode.el
 ![Build Status](https://github.com/jamescherti/ultisnips-mode.el/actions/workflows/ci.yml/badge.svg)
-[![MELPA](https://melpa.org/packages/ultisnips-mode-badge.svg)](https://melpa.org/#/ultisnips-mode)
-[![MELPA Stable](https://stable.melpa.org/packages/ultisnips-mode-badge.svg)](https://stable.melpa.org/#/ultisnips-mode)
 ![License](https://img.shields.io/github/license/jamescherti/ultisnips-mode.el)
 ![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
@@ -18,14 +16,30 @@ The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet file
 
 ## Installation
 
-To install *ultisnips-mode* from MELPA:
+### Install with straight (Emacs version < 30)
 
-1. If you haven't already done so, [add MELPA repository to your Emacs configuration](https://melpa.org/#/getting-started).
+To install `ultisnips-mode` with `straight.el`:
 
-2. Add the following code to your Emacs init file to install *ultisnips-mode* from MELPA:
+1. It if hasn't already been done, [add the straight.el bootstrap code](https://github.com/radian-software/straight.el?tab=readme-ov-file#getting-started) to your init file.
+2. Add the following code to the Emacs init file:
 ```emacs-lisp
 (use-package ultisnips-mode
-  :ensure t)
+  :ensure t
+  :straight (ultisnips-mode
+             :type git
+             :host github
+             :repo "jamescherti/ultisnips-mode.el"))
+```
+
+### Installing with use-package and :vc (Built-in feature in Emacs version >= 30)
+
+To install `ultisnips-mode` with `use-package` and `:vc` (Emacs >= 30):
+
+``` emacs-lisp
+(use-package ultisnips-mode
+  :ensure t
+  :vc (:url "https://github.com/jamescherti/ultisnips-mode.el"
+       :rev :newest))
 ```
 
 ## Frequently Asked Questions
