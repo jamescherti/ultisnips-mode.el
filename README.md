@@ -7,7 +7,7 @@
 
 The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet files (*.snippets files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
 
-*([Vim's UltiSnips](https://github.com/SirVer/ultisnips) is a snippet solution for Vim, and its snippets can be used in Emacs by converting them to the Yasnippet format using [Ultyas](https://github.com/jamescherti/ultyas).)*
+*(Vim's UltiSnips is a snippet solution for Vim, and its snippets can be used in Emacs by converting them to the Yasnippet format using [Ultyas](https://github.com/jamescherti/ultyas).)*
 
 ## Features
 
