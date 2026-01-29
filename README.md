@@ -59,6 +59,20 @@ The following configuration automatically folds all code blocks when `ultisnips-
 
 This ensures a cleaner view of snippets, collapsing all regions by default and allowing selective expansion as needed.
 
+### Is there a package that allows using UltiSnips directly in Emacs, or is it necessary to first convert them to the Yasnippet format?
+
+Yes, conversion to Yasnippet is required.
+
+A command-line tool called [Ultyas](https://github.com/jamescherti/ultyas) facilitates the conversion of snippets from UltiSnips to Yasnippet format.
+
+### How does the author use ultisnips-mode and Ultyas?
+
+The author maintains all snippets in the original UltiSnips format for Vim and uses [Ultyas](https://github.com/jamescherti/ultyas) to convert them automatically to Yasnippet format for Emacs.
+
+This workflow allows editing and storing a single set of snippets while making them available in Vim and Emacs.
+
+The author wrote a shell script that automatically scans the UltiSnips directory and generates the corresponding Yasnippet files whenever snippets are updated, ensuring synchronization between Vim and Emacs.
+
 ## Author and License
 
 The *ultisnips-mode* Emacs package has been written by [James Cherti](https://www.jamescherti.com/) and is distributed under terms of the GNU General Public License version 3, or, at your choice, any later version.
