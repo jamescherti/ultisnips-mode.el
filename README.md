@@ -69,6 +69,8 @@ A command-line tool called [Ultyas](https://github.com/jamescherti/ultyas) facil
 
 The author maintains all snippets in the original UltiSnips format for Vim and uses [Ultyas](https://github.com/jamescherti/ultyas) to convert them automatically to Yasnippet format for Emacs.
 
+He uses **ultisnips-mode** in Emacs to edit snippets, providing syntax highlighting and code folding through **hs-minor-mode**.
+
 This workflow allows editing and storing a single set of snippets while making them available in Vim and Emacs.
 
 The author wrote a shell script that automatically scans the UltiSnips directory and generates the corresponding Yasnippet files whenever snippets are updated, ensuring synchronization between Vim and Emacs.
