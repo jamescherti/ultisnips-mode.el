@@ -167,6 +167,9 @@ to the end of the next block. When ARG is nil, treat it as 1."
        font-lock-function-name-face)
       ("^\\(global\\|endglobal\\)\\_>" .
        font-lock-function-name-face)
+      ("^\\(post_jump\\)\\s-+\\(.*\\)$"
+       (1 font-lock-function-name-face)
+       (2 font-lock-string-face nil t))
       ("^snippet\\s-+\\(\\S-+\\)\\(.*\\)$"
        (1 font-lock-keyword-face)
        (2 font-lock-string-face nil t))
