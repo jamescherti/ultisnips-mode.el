@@ -160,7 +160,7 @@ to the end of the next block. When ARG is nil, treat it as 1."
    '(( ;; Comments
       ("^\\s-*#.*" . font-lock-comment-face)
       ;; snippet, endsnippet, priority as functions
-      ("^\\(priority\\)\\_>" .
+      ("^\\(priority\\|extends\\)\\_>" .
        font-lock-function-name-face)
       ;; snippet [trigger] ["description"] [options]
       ("^\\(snippet\\|endsnippet\\)\\_>" .
