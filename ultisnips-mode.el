@@ -129,7 +129,7 @@ to the end of the next block. When ARG is nil, treat it as 1."
   (setq-local font-lock-multiline t)
   (setq-local indent-tabs-mode t)
   (setq-local tab-width 4)
-  (setq-local indent-line-function #'ignore)
+  (setq-local indent-line-function #'insert-tab)
 
   (setq-local comment-start "# ")
   (setq-local comment-start-skip "#+\\s-*")
