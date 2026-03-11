@@ -3,7 +3,7 @@
 ;; Copyright (C) 2025-2026 James Cherti | https://www.jamescherti.com/contact/
 
 ;; Author: James Cherti <https://www.jamescherti.com/contact/>
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; URL: https://github.com/jamescherti/ultisnips-mode.el
 ;; Keywords: languages
 ;; Package-Requires: ((emacs "26.3"))
