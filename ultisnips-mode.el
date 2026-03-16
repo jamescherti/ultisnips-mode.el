@@ -143,14 +143,14 @@ to the end of the next block. When ARG is nil, treat it as 1."
   (setq-local hs-block-end-regexp "^\\(endsnippet\\|endglobal\\)\\_>")
 
   (unless (assq 'ultisnips-mode hs-special-modes-alist)
-    (add-to-list 'hs-special-modes-alist
-                 `(ultisnips-mode
-                   ;; Start
-                   ,(regexp-opt (mapcar #'car ultisnips-mode--sexp-alist) 'words)
-                   ;; End
-                   ,(regexp-opt (mapcar #'cdr ultisnips-mode--sexp-alist) 'words)
-                   nil
-                   ultisnips-mode--hs-forward-sexp)))
+    (push `(ultisnips-mode
+            ;; Start
+            ,(regexp-opt (mapcar #'car ultisnips-mode--sexp-alist) 'words)
+            ;; End
+            ,(regexp-opt (mapcar #'cdr ultisnips-mode--sexp-alist) 'words)
+            nil
+            ultisnips-mode--hs-forward-sexp)
+          hs-special-modes-alist))
 
   (setq-local forward-sexp-function #'ultisnips-mode--forward-sexp)
 

@@ -24,7 +24,8 @@ To install *ultisnips-mode* from MELPA:
 
 2. Add the following code to your Emacs init file to install *ultisnips-mode* from MELPA:
 ```emacs-lisp
-(use-package ultisnips-mode)
+(use-package ultisnips-mode
+  :mode "\\.snippets\\'")
 ```
 
 ## Frequently Asked Questions
