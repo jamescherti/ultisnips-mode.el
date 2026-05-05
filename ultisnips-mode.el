@@ -64,13 +64,13 @@
     (save-match-data
       (while (> count 0)
         (skip-chars-forward " \t\n")
-        (beginning-of-line)
+        (goto-char (line-beginning-position))
 
         (let ((done nil))
           ;; If already on an end keyword, just move past it
           (dolist (end ends)
             (when (looking-at (concat "^" end "\\_>"))
-              (end-of-line)
+              (goto-char (line-end-position))
               (setq done t)))
 
           ;; Otherwise search forward for the next end keyword
@@ -78,7 +78,7 @@
             (unless (re-search-forward
                      (concat "^" (regexp-opt ends 'words) "\\_>") nil t)
               (error "No further UltiSnips block end found"))
-            (end-of-line)))
+            (goto-char (line-end-position))))
 
         (setq count (1- count))))
     (point)))
@@ -94,7 +94,7 @@ to the end of the next block. When ARG is nil, treat it as 1."
     (save-match-data
       (while (> count 0)
         ;; Normalize position
-        (beginning-of-line)
+        (goto-char (line-beginning-position))
 
         (cond
          ;; At snippet start: jump to its end
@@ -102,14 +102,14 @@ to the end of the next block. When ARG is nil, treat it as 1."
           (goto-char (match-end 0))
           (unless (re-search-forward "^endsnippet\\_>" nil t)
             (error "No matching endsnippet found"))
-          (end-of-line))
+          (goto-char (line-end-position)))
 
          ;; At global start: jump to its end
          ((looking-at "^global\\_>")
           (goto-char (match-end 0))
           (unless (re-search-forward "^endglobal\\_>" nil t)
             (error "No matching endglobal found"))
-          (end-of-line))
+          (goto-char (line-end-position)))
 
          ;; Otherwise, jump to next block start
          (t
