@@ -1,5 +1,5 @@
 # ultisnips-mode.el
-![Build Status](https://github.com/jamescherti/ultisnips-mode.el/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/jamescherti/ultisnips-mode.el/actions/workflows/melpazoid.yml/badge.svg)
 [![MELPA](https://melpa.org/packages/ultisnips-mode-badge.svg)](https://melpa.org/#/ultisnips-mode)
 [![MELPA Stable](https://stable.melpa.org/packages/ultisnips-mode-badge.svg)](https://stable.melpa.org/#/ultisnips-mode)
 ![License](https://img.shields.io/github/license/jamescherti/ultisnips-mode.el)
