@@ -1,11 +1,11 @@
-# ultisnips-mode.el
+# ultisnips-mode.el - An Emacs major mode for editing Ultisnips snippet files (*.snippets files)
 ![Build Status](https://github.com/jamescherti/ultisnips-mode.el/actions/workflows/melpazoid.yml/badge.svg)
 [![MELPA](https://melpa.org/packages/ultisnips-mode-badge.svg)](https://melpa.org/#/ultisnips-mode)
 [![MELPA Stable](https://stable.melpa.org/packages/ultisnips-mode-badge.svg)](https://stable.melpa.org/#/ultisnips-mode)
 ![License](https://img.shields.io/github/license/jamescherti/ultisnips-mode.el)
 ![](https://jamescherti.com/misc/made-for-gnu-emacs.svg)
 
-The **ultisnips-mode** is an Emacs major mode for editing Ultisnips snippet files (*.snippets files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
+The **[ultisnips-mode.el](https://github.com/jamescherti/ultisnips-mode.el)** is an Emacs major mode for editing Ultisnips snippet files (*.snippets files). This mode provides syntax highlighting to facilitate editing Ultisnips snippets.
 
 *(Vim's UltiSnips is a snippet solution for Vim, and its snippets can be used in Emacs by converting them to the Yasnippet format using [Ultyas](https://github.com/jamescherti/ultyas).)*
 
@@ -88,6 +88,7 @@ This program is free software: you can redistribute it and/or modify it under th
 - [Ultyas](https://github.com/jamescherti/ultyas/): A command-line tool designed to simplify the process of converting code snippets from UltiSnips to YASnippet format.
 
 Other Emacs packages by the same author:
+
 - [minimal-emacs.d](https://github.com/jamescherti/minimal-emacs.d): This repository hosts a minimal Emacs configuration designed to serve as a foundation for your vanilla Emacs setup and provide a solid base for an enhanced Emacs experience.
 - [compile-angel.el](https://github.com/jamescherti/compile-angel.el): **Speed up Emacs!** This package guarantees that all .el files are both byte-compiled and native-compiled, which significantly speeds up Emacs.
 - [easysession.el](https://github.com/jamescherti/easysession.el): Easysession is lightweight Emacs session manager that can persist and restore file editing buffers, indirect buffers/clones, Dired buffers, the tab-bar, and the Emacs frames (with or without the Emacs frames size, width, and height).
