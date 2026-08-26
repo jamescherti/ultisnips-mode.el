@@ -5,7 +5,7 @@
 ;; Author: James Cherti <https://www.jamescherti.com/contact/>
 ;; Version: 1.0.4
 ;; URL: https://github.com/jamescherti/ultisnips-mode.el
-;; Keywords: languages
+;; Keywords: languages, convenience
 ;; Package-Requires: ((emacs "26.3"))
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -29,7 +29,7 @@
 
 (defgroup ultisnips nil
   "Emacs major mode for editing Ultisnips snippets."
-  :group 'ultisnips
+  :group 'languages
   :prefix "ultisnips-mode-"
   :link '(url-link
           :tag "Github"
