@@ -50,9 +50,6 @@
                                      ("global"  . "endglobal"))
   "Alist mapping UltiSnips block start keywords to their end keywords.")
 
-(declare-function pos-bol nil)
-(declare-function pos-eol nil)
-
 (defalias 'ultisnips-mode--pos-bol
   (if (fboundp 'pos-bol) #'pos-bol #'line-beginning-position))
 
