@@ -192,8 +192,9 @@ to the end of the next block. When ARG is nil, treat it as 1."
      )))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist
-             '("\\.[sS][nN][iI][pP][pP][eE][tT][sS]\\'" . ultisnips-mode))
+(let ((entry '("\\.[sS][nN][iI][pP][pP][eE][tT][sS]\\'" . ultisnips-mode)))
+  (unless (member entry auto-mode-alist)
+    (push entry auto-mode-alist)))
 
 (provide 'ultisnips-mode)
 ;;; ultisnips-mode.el ends here
